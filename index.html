@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Sweet 17th Alicia Alexandra! 💜</title>
+    <style>
+        /* --- ROOT THEME: SOFT PASTEL PURPLE --- */
+        :root {
+            --bg-smooth: #f4eefc;
+            --purple-light: #e8dbfc;
+            --purple-main: #b794f4;
+            --purple-dark: #5b3e96;
+            --text-color: #4a3b60;
+            --card-white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-smooth);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- PHONE WRAPPER (Biar mirip struktur tampilan App di Video) --- */
+        .phone-frame {
+            width: 100%;
+            max-width: 420px;
+            height: 90vh;
+            max-height: 840px;
+            background: var(--card-white);
+            border-radius: 40px;
+            box-shadow: 0 20px 40px rgba(91, 62, 150, 0.12);
+            border: 8px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- HEADER FIXED --- */
+        .app-header {
+            padding: 20px 20px 10px 20px;
+            text-align: center;
+            background: var(--card-white);
+            z-index: 10;
+        }
+
+        .app-header h1 {
+            font-size: 1.4rem;
+            color: var(--purple-dark);
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .app-header p {
+            font-size: 0.85rem;
+            color: var(--purple-main);
+            margin: 5px 0 0 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- INTERACTIVE TABS (Menu Atas) --- */
+        .tabs-container {
+            display: flex;
+            gap: 5px;
+            padding: 10px 15px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none; /* Hide scrollbar Firefox */
+            background: var(--card-white);
+            border-bottom: 1px solid #f0e6fc;
+        }
+
+        .tabs-container::-webkit-scrollbar {
+            display: none; /* Hide scrollbar Chrome/Safari */
+        }
+
+        .tab-item {
+            padding: 8px 16px;
+            background: #f7f3fd;
+            color: var(--purple-dark);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            flex-shrink: 0;
+        }
+
+        .tab-item.active {
+            background: var(--purple-dark);
+            color: #ffffff;
+            box-shadow: 0 4px 10px rgba(91, 62, 150, 0.2);
+        }
+
+        /* --- SLIDER VIEWPORT (Kunci Efek Geser/Slide Semirip Mungkin) --- */
+        .view-slider {
+            display: flex;
+            width: 400%; /* 4 Halaman = 400% */
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.1, 1, 0.1, 1); /* Efek iOS Swipe */
+        }
+
+        .page-content {
+            width: 25%; /* Tiap halaman mengambil jatah 100% dari frame */
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            background: #faf8ff;
+        }
+
+        /* --- COMPONENT PAGE 1: SURAT UTAMA --- */
+        .envelope-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid #f0e6fc;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .envelope-card p {
+            margin: 12px 0;
+        }
+
+        /* --- COMPONENT PAGE 2: POLAROID GRID (4:3 RATIO) --- */
+        .grid-polaroid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .polaroid {
+            background: #ffffff;
+            padding: 12px 12px 20px 12px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+            transform: rotate(-1deg);
+            transition: all 0.3s ease;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        /* Formula Rasio Ketat 4:3 Horizontal */
+        .img-wrapper-4-3 {
+            position: relative;
+            width: 100%;
+            padding-top: 75%; /* 4:3 Ratio */
+            overflow: hidden;
+            border-radius: 6px;
+            background-color: var(--purple-light);
+        }
+
+        .img-wrapper-4-3 img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #554466;
+        }
+
+        /* --- COMPONENT PAGE 3: STATS & TIMELINE --- */
+        .card-stats {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .stat-row {
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .progress-container {
+            background: #eee8f7;
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--purple-main), var(--purple-dark));
+            width: 0%;
+            transition: width 1s cubic-bezier(0.1, 1, 0.1, 1);
+        }
+
+        /* --- COMPONENT PAGE 4: MUSIC & INTERACTIVE Q&A --- */
+        .music-player {
+            background: linear-gradient(135deg, #432b68, #1a122c);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .album-art {
+            width: 55px;
+            height: 55px;
+            background: var(--purple-main);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .music-info {
+            flex-grow: 1;
+        }
+
+        .music-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .music-artist {
+            font-size: 0.75rem;
+            color: #bfaed6;
+            margin: 3px 0 0 0;
+        }
+
+        .interactive-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            border: 2px dashed var(--purple-light);
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            background: var(--purple-dark);
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(91, 62, 150, 0.3);
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .bottom-bar {
+            padding: 15px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #a396b8;
+            background: var(--card-white);
+            border-top: 1px solid #f0e6fc;
+        }
+
+        /* =======================================
+           TAMBAHAN NO 2: CSS ANIMASI BERPUTAR 
+           ======================================= */
+        .berputar {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FRAME UTAMA (MENIRU LAYOUT HP) -->
+    <div class="phone-frame">
+        
+        <!-- HEADER FIXED -->
+        <div class="app-header">
+            <h1>Alicia Alexandra ✨</h1>
+            <p>SWEET SEVENTEEN CHAPTER</p>
+        </div>
+
+        <!-- NAVIGASI BAR ATAS -->
+        <div class="tabs-container">
+            <button class="tab-item active" onclick="jumpToPage(0)">✉️ Wishes</button>
+            <button class="tab-item" onclick="jumpToPage(1)">📸 Gallery (4:3)</button>
+            <button class="tab-item" onclick="jumpToPage(2)">📊 Fun Stats</button>
+            <button class="tab-item" onclick="jumpToPage(3)">🎵 Vibe Zone</button>
+        </div>
+
+        <!-- SLIDER UTAMA (Sistem Transisi Geser Horizontal) -->
+        <div class="view-slider" id="mainSlider">
+            
+            <!-- HALAMAN 1: SURAT -->
+            <div class="page-content">
+                <div class="envelope-card">
+                    <p><b>Dear Alicia,</b></p>
+                    <p>Happy Sweet Seventeen, Alicia. 💜 17 tahun akhirnya ya. Jujur, aku nggak terlalu jago bikin ucapan ulang tahun, tapi aku cuma mau bilang kalau aku seneng banget bisa kenal kamu.</p>
+                    <p>Semoga tahun ini kamu lebih banyak ketawa daripada sedih, lebih banyak senengnya daripada kecewanya, dan semua hal baik yang kamu kasih ke orang lain balik ke kamu berkali-kali lipat. Tetep jadi Alicia yang aku kenal, yang kadang nyebelin, kadang lucu, dan selalu cantik bangettbanget juga.</p>
+                    <p>Selamat ulang tahun yaa ciaaa, Semangat terus cheersnyaa!! makin jago juga main gitarnyaa! i Hope every day brings you something that makes your mood a little better.</p>
+                    <p>Pokoknya <i>wishing you all the absolute best things in life</i>! 🦄💜</p>
+                </div>
+            </div>
+
+            <!-- HALAMAN 2: GALERI FOTO (4:3 POLAROID STYLE) -->
+            <div class="page-content">
+                <div class="grid-polaroid">
+                    <div class="polaroid">
+                        <div class="img-wrapper-4-3">
+                            <img src="https://cdn.discordapp.com/attachments/1434111588016717876/1510123176103776467/6D19C8C3-9216-4C6A-97C4-A0106EC721E1.jpg?ex=6a1bab4d&is=6a1a59cd&hm=848cf511874b74b021c51e1507ea3d1771c1e801bc7cef055b0d8120cdc5ea17&" alt="Alicia 1">
+                        </div>
+                        <div class="polaroid-caption">ciaa naa atuu!! </div>
+                    </div>
+                    
+                    <div class="polaroid">
+                        <div class="img-wrapper-4-3">
+                            <img src="https://cdn.discordapp.com/attachments/1434111588016717876/1510123174933692527/d9387f52-dd83-4adc-8114-c42442caf6be.jpg?ex=6a1bab4d&is=6a1a59cd&hm=1db5a68e7d3dffe615cda249932665677f9b778cc1a7759bfe256b522a4faa0c&" alt="Alicia 2">
+                        </div>
+                        <div class="polaroid-caption">cantik bangett siiii </div>
+                    </div>
+
+                    <div class="polaroid">
+                        <div class="img-wrapper-4-3">
+                            <img src="https://cdn.discordapp.com/attachments/1434111588016717876/1510123173213896744/D71FD3CD-8AA0-43B1-8CD4-78129A2C2FF1.jpg?ex=6a1bab4d&is=6a1a59cd&hm=9258b07f086d8827111c13e3c09d30d78210ae7aeff75db57cc46f0ce47c37f0&" alt="Alicia 3">
+                        </div>
+                        <div class="polaroid-caption">pulang lat cheers aja tetep lucu💕</div>
+                    </div>
+
+                    <div class="polaroid">
+                        <div class="img-wrapper-4-3">
+                            <img src="https://cdn.discordapp.com/attachments/1434111588016717876/1510123174455414895/62a71865-c2e1-497f-b944-cb6a27ba0970.jpg?ex=6a1bab4d&is=6a1a59cd&hm=88be094e5e7b99271213732c0665c4dd22558b916cf3ed89bec27f85227f17dd&" alt="Alicia 4">
+                        </div>
+                        <div class="polaroid-caption">kok bisa cantik bgt siiii </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HALAMAN 3: STATISTIK INTERAKTIF -->
+            <div class="page-content">
+                <div class="card-stats">
+                    <h3 style="margin-top:0; color:var(--purple-dark); font-size:1.1rem;">Alicia's Level Attributes 📊</h3>
+                    
+                    <div class="stat-row">
+                        <div class="stat-label"><span>Aesthetic Rate</span><span>999%</span></div>
+                        <div class="progress-container"><div class="progress-fill" data-percent="100%"></div></div>
+                    </div>
+                    
+                    <div class="stat-row">
+                        <div class="stat-label"><span>Guitar Skill</span><span>92%</span></div>
+                        <div class="progress-container"><div class="progress-fill" data-percent="92%"></div></div>
+                    </div>
+
+                    <div class="stat-row">
+                        <div class="stat-label"><span>cantik bangetttt</span><span>1000%</span></div>
+                        <div class="progress-container"><div class="progress-fill" data-percent="100%"></div></div>
+                    </div>
+
+                    <div class="stat-row">
+                        <div class="stat-label"><span>Energi Latihan Cheers (tergantung mood dia)</span><span>95%</span></div>
+                        <div class="progress-container"><div class="progress-fill" data-percent="95%"></div></div>
+                    </div>
+                </div>
+
+                <div class="card-stats" style="border-left: 4px solid var(--purple-main);">
+                    <h4 style="margin: 0 0 5px 0; color: var(--purple-dark)">Fun Fact!</h4>
+                    <p style="margin:0; font-size:0.85rem; line-height:1.5;">Aliciaa na atuu kaalo abis pulang lat cheers tingkat kelucuannya meningkat otomatis sebanyak 150%.</p>
+                </div>
+            </div>
+
+            <!-- HALAMAN 4: MUSIK & KEJUTAN -->
+            <div class="page-content">
+                <!-- File Audio Tersembunyi -->
+                <audio id="laguUltah" src="musikku.mp3" loop></audio>
+
+                <!-- Pemutar Lagu Estetik -->
+                <div class="music-player">
+                    <div class="album-art" id="piringanHitam">🎸</div>
+                    <div class="music-info">
+                        <p class="music-title" id="judulLagu">Happy Birthday Alicia</p>
+                        <p class="music-artist" id="artisLagu">Double Take - Dhruv (Cover)</p>
+                    </div>
+                    <span id="statusIcon" style="font-size: 1.2rem;">📁</span>
+                </div>
+
+                <div class="interactive-box">
+                    <h3 style="margin-top:0; font-size:1.1rem; color:var(--purple-dark)">Special Box 🎁</h3>
+                    <p style="font-size:0.85rem; margin-bottom:15px;">Klik tombol di bawah untuk membuka kado sekaligus memutar lagu kesukaan Alicia!</p>
+                    <button class="action-btn" id="btnKado" onclick="kontrolMusik()">Buka Kado & Putar Musik 🎵</button>
+                </div>
+
+                <div class="interactive-box">
+                    <h3 style="margin-top:0; font-size:1.1rem; color:var(--purple-dark)">Hidden Message 🎁🤏</h3>
+                    <p style="font-size:0.85rem; margin-bottom:15px;">Tap the button below for a little hidden message at the end</p>
+                    <button class="action-btn" onclick="triggerSurprise()">Buka Pesan Rahasia</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER FIXED -->
+        <div class="bottom-bar">
+            Made with 💜 for Alicia Alexandra | 2026
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIKA SWIPE & MUSIK -->
+    <script>
+        function jumpToPage(pageIndex) {
+            // 1. Menggeser slider utama secara horizontal
+            const slider = document.getElementById('mainSlider');
+            const movePercentage = pageIndex * -25; // Karena ada 4 halaman (100% / 4 = 25%)
+            slider.style.transform = `translateX(${movePercentage}%)`;
+
+            // 2. Mengubah tombol tab aktif
+            const tabs = document.querySelectorAll('.tab-item');
+            tabs.forEach((tab, index) => {
+                if (index === pageIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            // 3. Picu animasi bar statistik jika masuk ke halaman index 2 (Halaman Stats)
+            const progressBars = document.querySelectorAll('.progress-fill');
+            if (pageIndex === 2) {
+                progressBars.forEach(bar => {
+                    const targetWidth = bar.getAttribute('data-percent');
+                    bar.style.width = targetWidth;
+                });
+            } else {
+                // Sembunyikan kembali jika pindah tab agar bisa re-animasi
+                progressBars.forEach(bar => bar.style.width = '0%');
+            }
+        }
+
+        /* =======================================
+           TAMBAHAN NO 3: FUNGSI KONTROL MUSIK 
+           ======================================= */
+        function kontrolMusik() {
+            const lagu = document.getElementById('laguUltah');
+            const piringan = document.getElementById('piringanHitam');
+            const tombol = document.getElementById('btnKado');
+            const icon = document.getElementById('statusIcon');
+
+            if (lagu.paused) {
+                lagu.play().then(() => {
+                    piringan.classList.add('berputar');
+                    tombol.innerText = "Pause Musik ⏸️";
+                    icon.innerText = "🔊";
+                }).catch(error => {
+                    alert("Gagal memutar lagu. Pastikan file 'musikku.mp3' sudah ditaruh di folder yang sama!");
+                });
+                
+                alert("Selamat menginjak usia 17 tahun, Alicia Alexandra! Semoga harimu menyenangkan dan dipenuhi kejutan manis! 🎉🦄");
+            } else {
+                lagu.pause();
+                piringan.classList.remove('berputar');
+                tombol.innerText = "Putar Musik ▶️";
+                icon.innerText = "🔇";
+            }
+        }
+
+        function triggerSurprise() {
+            alert("Fungsinya emang nggak ada, tapi semoga bisa bikin kamu senyum DIKIT🤏 HAHAHAHAA lov u.");
+        }
+    </script>
+</body>
+</html>
